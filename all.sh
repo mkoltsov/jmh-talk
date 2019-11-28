@@ -1,0 +1,1 @@
+java -jar test/target/benchmarks.jar -f 1 -i 1 -wi 1 -w 1 -r 1 -bm all
