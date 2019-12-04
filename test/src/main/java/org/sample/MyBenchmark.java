@@ -31,15 +31,15 @@
 
 package org.sample;
 
-import org.openjdk.jmh.annotations.Benchmark;
-import org.openjdk.jmh.annotations.Scope;
-import org.openjdk.jmh.annotations.Setup;
-import org.openjdk.jmh.annotations.State;
+import org.openjdk.jmh.annotations.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @State(Scope.Benchmark)
+@OutputTimeUnit(TimeUnit.MICROSECONDS)
+@Fork(1)
 public class MyBenchmark {
 
     private Map<String, String> map;
@@ -50,6 +50,9 @@ public class MyBenchmark {
     }
 
     @Benchmark
+    @Warmup(iterations = 5, time = 100, timeUnit = TimeUnit.MILLISECONDS)
+    @Measurement(iterations = 5, time = 100, timeUnit = TimeUnit.MILLISECONDS)
+    @BenchmarkMode(Mode.All)
     public String testPut() {
         return map.put("yo","yo");
     }
